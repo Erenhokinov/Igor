@@ -7,7 +7,7 @@
 
   boot.loader.grub = {
      enable = true;
-     device = "/dev/???";
+     device = "/dev/Igoronok";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_5_4;
@@ -26,7 +26,7 @@
   networking.hostName = "nixos";
   networking.networkmanager.enable = true;
 
-  time.timeZone = "Europe/Moscow";
+  time.timeZone = "Europe/Kyiv";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "ru_RU.UTF-8";
