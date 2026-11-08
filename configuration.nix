@@ -157,13 +157,15 @@ services.xserver = {
     alacritty
     starship
     zsh
-    qutebrowser
+    google-chrome
     neovim
     xclip
     maim
     i3-nagbar
     i3blocks
     vim
+    materialgram
+    legcord
     fastfetch
     brightnessctl
     git
