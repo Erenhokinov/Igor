@@ -7,7 +7,7 @@
 
   boot.loader.grub = {
      enable = true;
-     device = "/dev/Igoronok";
+     device = "/dev/sdb";
   };
 
   boot.kernelPackages = pkgs.linuxPackages_5_4;
