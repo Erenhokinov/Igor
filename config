@@ -2,8 +2,8 @@
 
 set $mod Mod4
 
-exec_always --no-startup-id xwallpaper --color #0c0c0a
-exec_always --no-startup-id polybar
+exec_always --no-startup-id xsetroot -solid '#0c0c0a'
+# exec_always --no-startup-id sh -c 'pkill polybar; polybar <barname>'
 
 set $left h
 set $down j
@@ -12,8 +12,8 @@ set $right l
 set $term alacritty
 set $menu rofi -show drun
 
-exec_always --no-startup-id xinput set-prop "Virtual core pointer" "Acceleration Profile" 0
-exec_always --no-startup-id xinput set-prop "Virtual core pointer" "Pointer Acceleration" -0.5
+# exec_always --no-startup-id xinput set-prop "MOUSE "libinput Accel Profile Enabled" 0, 1
+# exec_always --no-startup-id xinput set-prop "MOUSE" "libinput Accel Speed" -0.5
 
 font pango:Inter Regular 9
 
@@ -22,11 +22,10 @@ gaps outer 2
 smart_gaps on
 smart_borders on
 
-new_border pixel 1
-floating_border pixel 1
+default_border pixel 1
+default_floating_border pixel 1
 
-
-for_window [class="Alacritty"] opacity 0.95
+# for_window [class="Alacritty"] opacity 0.95
 
 #                        border    bg        text      indicator child_border
 client.focused           #e8e0d8   #1c1c1a   #f0ece8   #b8b0a8   #e8e0d8
@@ -82,8 +81,8 @@ bar {
     colors {
         background #0c0c0a
         statusline #f0ece8
-        focused_workspace  border #e8e0d8 background #1c1c1a text #f0ece8
-        unfocused_workspace border #2c2c2a background #111110 text #686460
-        urgent_workspace    border #cc4444 background #1a0a0a text #f0ece8
+        focused_workspace   #e8e0d8 #1c1c1a #f0ece8
+        unfocused_workspace #2c2c2a #111110 #686460
+        urgent_workspace    #cc4444 #1a0a0a #f0ece8
     }
-}   
+}
