@@ -4,8 +4,10 @@ set $mod Mod4
 
 exec_always --no-startup-id xsetroot -solid '#0c0c0a'
 # exec_always --no-startup-id sh -c 'pkill polybar; polybar <barname>'
+exec_always --no-startup-id picom -b
+exec_always --no-startup-id feh --bg-fill /home/maks/Igor/alya.png
 
-set $left h
+set $left h4
 set $down j
 set $up k
 set $right l
