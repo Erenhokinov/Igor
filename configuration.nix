@@ -66,17 +66,13 @@ in {
       Option "IgnoreABI" "1"
     '';
   };
-  nixpkgs.overlays = [
+nixpkgs.overlays = [
   (final: prev: {
     xorgserver = oldNixpkgs.xorg.xorgserver;
+    xf86inputevdev = oldNixpkgs.xorg.xf86inputevdev;
+    xf86inputlibinput = oldNixpkgs.xorg.xf86inputlibinput;
   })
 ];   
-  services.xserver.modules = lib.mkBefore [
-    config.hardware.nvidia.package.bin
-    oldNixpkgs.xorg.xf86inputevdev
-    oldNixpkgs.xorg.xf86inputlibinput
-  ];
-
   hardware.nvidia = {
     modesetting.enable = false;
     open = false;
