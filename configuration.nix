@@ -34,7 +34,7 @@
     LC_TELEPHONE = "ru_RU.UTF-8";
     LC_TIME = "ru_RU.UTF-8";
   };
-
+  services.flatpak.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.defaultSession = "none+i3";
   services.xserver = {
