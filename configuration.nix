@@ -177,7 +177,7 @@ nixpkgs.overlays = [
     neovim
     vim
     materialgram
-    dorion
+    legcord
     fastfetch
      xclip
     maim
