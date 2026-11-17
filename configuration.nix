@@ -44,34 +44,35 @@ in {
   services.flatpak.enable = true;
   services.displayManager.sddm.enable = true;
   services.displayManager.defaultSession = "none+i3";
-  services.xserver = {
-    enable = true;
-    windowManager.i3.enable = true;
-    xkb = {
-      layout = "us,ru";
-      options = "grp:alt_shift_toggle";
-    };
-    videoDrivers = ["nvidia"];
-    serverFlagsSection = ''
-      Option "IgnoreABI" "1"
-    '';
+services.xserver = {
+  enable = true;
+  windowManager.i3.enable = true;
+  xkb = {
+    layout = "us,ru";
+    options = "grp:alt_shift_toggle";
   };
-nixpkgs.overlays = [
-  (final: prev: {
-    xorgserver = oldNixpkgs.xorg.xorgserver;
-    xf86inputevdev = oldNixpkgs.xorg.xf86inputevdev;
-    xf86inputlibinput = oldNixpkgs.xorg.xf86inputlibinput;
-  })
-];   
-  hardware.nvidia = {
-    modesetting.enable = false;
-    open = false;
-    nvidiaSettings = false;
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_340.override {
-      stdenv = pkgs.gcc13Stdenv;
-    };
-  };
+  videoDrivers = ["nvidia"];
+  deviceSection = ''
+    BusID "PCI:2:0:0"
+  '';
+  serverFlagsSection = ''
+    Option "IgnoreABI" "1"
+  '';
+  modules = lib.mkBefore [ config.hardware.nvidia.package.bin ];
+};
 
+hardware.nvidia = {
+  modesetting.enable = false;
+  open = false;
+  nvidiaSettings = false;
+  package = (config.boot.kernelPackages.nvidiaPackages.legacy_340.override {
+    stdenv = pkgs.gcc13Stdenv;
+  }).overrideAttrs (old: {
+    postFixup = (old.postFixup or "") + ''
+      ln -sf libglx.so.340.108 $bin/lib/xorg/modules/extensions/libglx.so
+    '';
+  });
+};
   powerManagement.cpuFreqGovernor = "performance";
 
   hardware.graphics = {
