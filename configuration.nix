@@ -46,7 +46,7 @@ in {
 services.xserver = {
   enable = true;
   windowManager.i3.enable = true;
-  displayManager.gdm.enable = true;
+  displayManager.lightdm.enable = true;
   xkb = {
     layout = "us,ru";
     options = "grp:alt_shift_toggle";
