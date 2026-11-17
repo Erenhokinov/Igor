@@ -5,16 +5,11 @@
 }: {
   imports = [./hardware-configuration.nix];
 
-  boot.loader.grub = {
-     enable = true;
-     device = "/dev/sdb";
-  };
+  boot.loader.grub.device = "/dev/sda";
 
-  boot.kernelPackages = pkgs.linuxPackages_5_4;
+  boot.kernelPackages = pkgs.linuxPackages_6_1;
 
   boot.kernelParams = [
-    "quiet"
-    "loglevel=3"
     "mitigations=off"
     "nowatchdog"
     "processor.max_cstate=1"
@@ -40,42 +35,42 @@
     LC_TIME = "ru_RU.UTF-8";
   };
 
-services.xserver = {
-  enable = true;
-  displayManager = {
+  services.displayManager.sddm.enable = true;
+  services.displayManager.defaultSession = "none+i3";
+  services.xserver = {
     enable = true;
-    defaultSession = "i3";
+    windowManager.i3.enable = true;
+    xkb = {
+      layout = "us,ru";
+      options = "grp:alt_shift_toggle";
+    };
+    videoDrivers = ["nvidia"];
+    serverFlagsSection = ''
+      Option "IgnoreABI" "1"
+    '';
   };
-  windowManager.i3 = {
-    enable = true;
-    gaps.enable = true;
-  };
-  xkb = {
-    layout = "us,ru";
-    options = "grp:alt_shift_toggle";
-  };
-};  
 
-  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
     modesetting.enable = false;
     open = false;
-    package = config.boot.kernelPackages.nvidiaPackages.legacy_340;
-    nvidiaSettings = true;
+    nvidiaSettings = false;
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_340.override {
+      stdenv = pkgs.gcc13Stdenv;
+    };
   };
 
   powerManagement.cpuFreqGovernor = "performance";
 
   hardware.graphics = {
     enable = true;
-    enable32Bit = true;
-};
+    enable32Bit = false;
+  };
 
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa.support32Bit = false;
     pulse.enable = true;
     extraConfig.pipewire."92-low-latency" = {
       context.properties = {
@@ -108,6 +103,7 @@ services.xserver = {
     isNormalUser = true;
     description = "maks";
     shell = pkgs.zsh;
+    initialPassword = "changeme"; # change with `passwd` after first login
     extraGroups = ["networkmanager" "wheel" "audio" "video" "input"];
   };
 
@@ -152,17 +148,18 @@ services.xserver = {
   programs.thunar.enable = true;
 
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.nvidia.acceptLicense = true;
 
   environment.systemPackages = with pkgs; [
     alacritty
     starship
     zsh
-    google-chrome
+    brave
     neovim
     xclip
     maim
-    i3-nagbar
     i3blocks
+    xorg.xsetroot
     vim
     materialgram
     legcord
