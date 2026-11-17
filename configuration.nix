@@ -42,11 +42,11 @@ in {
     LC_TIME = "ru_RU.UTF-8";
   };
   services.flatpak.enable = true;
-  services.displayManager.gdm.enable = true;
   services.displayManager.defaultSession = "none+i3";
 services.xserver = {
   enable = true;
   windowManager.i3.enable = true;
+  displayManager.gdm.enable = true;
   xkb = {
     layout = "us,ru";
     options = "grp:alt_shift_toggle";
