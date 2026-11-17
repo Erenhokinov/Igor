@@ -95,6 +95,12 @@ nixpkgs.overlays = [
     };
   };
 
+  xdg.portal = {
+    enable = true;
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
+  }; 
   services.tlp.enable = false;
   services.thermald.enable = false;
 
