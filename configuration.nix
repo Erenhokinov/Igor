@@ -66,7 +66,11 @@ in {
       Option "IgnoreABI" "1"
     '';
   };
-  services.xserver.package = oldNixpkgs.xorg.xorgserver;
+  nixpkgs.overlays = [
+  (final: prev: {
+    xorgserver = oldNixpkgs.xorg.xorgserver;
+  })
+];   
   services.xserver.modules = lib.mkBefore [
     config.hardware.nvidia.package.bin
     oldNixpkgs.xorg.xf86inputevdev
