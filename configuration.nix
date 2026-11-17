@@ -46,16 +46,6 @@ in {
   services.displayManager.defaultSession = "none+i3";
   services.xserver = {
     enable = true;
-    packages = with pkgs; [
-    xclip
-    maim
-    i3blocks
-    xorg.xsetroot
-    picom
-    polybar
-    xwallpaper
-    ];
-
     windowManager.i3.enable = true;
     xkb = {
       layout = "us,ru";
@@ -183,6 +173,13 @@ nixpkgs.overlays = [
     materialgram
     dorion
     fastfetch
+     xclip
+    maim
+    i3blocks
+    xorg.xsetroot
+    picom
+    polybar
+    xwallpaper
     brightnessctl
     git
     rofi
