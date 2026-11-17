@@ -2,7 +2,13 @@
   config,
   pkgs,
   ...
-}: {
+}: 
+let
+  oldNixpkgs = import (builtins.fetchTarball {
+    url = "https://github.com/NixOS/nixpkgs/archive/refs/heads/release-21.05.tar.gz";
+  }) { system = "x86_64-linux"; config.allowUnfree = true; };
+in {
+
   imports = [./hardware-configuration.nix];
 
   boot.loader.grub.device = "/dev/sda";
@@ -49,6 +55,12 @@
       Option "IgnoreABI" "1"
     '';
   };
+  services.xserver.package = oldNixpkgs.xorg.xorgserver;
+  services.xserver.modules = lib.mkBefore [
+    config.hardware.nvidia.package.bin
+    oldNixpkgs.xorg.xf86inputevdev
+    oldNixpkgs.xorg.xf86inputlibinput
+  ];
 
   hardware.nvidia = {
     modesetting.enable = false;
@@ -103,7 +115,7 @@
     isNormalUser = true;
     description = "maks";
     shell = pkgs.zsh;
-    initialPassword = "changeme"; # change with `passwd` after first login
+    initialPassword = "Eren228228";
     extraGroups = ["networkmanager" "wheel" "audio" "video" "input"];
   };
 
