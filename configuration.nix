@@ -45,6 +45,16 @@ in {
   services.displayManager.defaultSession = "none+i3";
   services.xserver = {
     enable = true;
+    packages = with pkgs; [
+    xclip
+    maim
+    i3blocks
+    xorg.xsetroot
+    picom
+    polybar
+    xwallpaper
+    ];
+
     windowManager.i3.enable = true;
     xkb = {
       layout = "us,ru";
@@ -168,20 +178,13 @@ in {
     zsh
     brave
     neovim
-    xclip
-    maim
-    i3blocks
-    xorg.xsetroot
     vim
     materialgram
-    legcord
-    picom
+    dorion
     fastfetch
     brightnessctl
     git
     rofi
-    polybar
-    xwallpaper
     pciutils
     wget
     osu-lazer-bin
