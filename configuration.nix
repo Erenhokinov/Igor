@@ -169,7 +169,7 @@
     git
     rofi
     polybar
-    xwallpaper
+    feh
     pciutils
     wget
     osu-lazer-bin
