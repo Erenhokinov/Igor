@@ -163,6 +163,7 @@
     vim
     materialgram
     legcord
+    picom
     fastfetch
     brightnessctl
     git
