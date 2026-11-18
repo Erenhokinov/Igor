@@ -54,6 +54,7 @@ services.xserver = {
   videoDrivers = ["nvidia"];
   deviceSection = ''
     BusID "PCI:2:0:0"
+    Option "AllowGLXWithComposite" "true"
   '';
   serverFlagsSection = ''
     Option "IgnoreABI" "1"
